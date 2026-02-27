@@ -7,7 +7,7 @@
 #include "hw_config.h"
 #include <Arduino.h>
 
-#define DEBOUNCE_MS  20   // 5 consecutive same reads @ 4 ms = 20 ms
+#define DEBOUNCE_MS  2  // 5 consecutive same reads @ 4 ms = 20 ms
 
 static uint8_t raw_prev    = 1;  // last raw reading
 static uint8_t debounced   = 1;  // stable debounced state (HIGH = not pressed)
