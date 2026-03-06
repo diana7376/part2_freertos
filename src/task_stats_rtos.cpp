@@ -4,9 +4,6 @@
  *
  * Period  : 20 ms
  * Offset  : 5 ms
- *
- * Waits on the binary semaphore (blocking) so it only wakes on an event.
- * Yellow blink state machine is advanced in a separate short-period tick.
  */
 
 #include <Arduino_FreeRTOS.h>
@@ -17,7 +14,6 @@
 #define OFFSET_MS      5
 #define BLINKS_SHORT   5
 #define BLINKS_LONG    10
-#define BLINK_TICK_MS  1   // advance blink SM every 1 ms
 
 void Task_Statistics_RTOS(void *pvParameters) {
     (void)pvParameters;
@@ -28,7 +24,7 @@ void Task_Statistics_RTOS(void *pvParameters) {
     const TickType_t xPeriod = pdMS_TO_TICKS(20);
 
     for (;;) {
-        // Advance yellow blink SM (20 steps of 1 ms per 20 ms period)
+        // Advance yellow blink SM: 20 steps to compensate for 20 ms period
         for (uint8_t i = 0; i < 20; i++) led_yellow_blink_tick();
 
         uint32_t duration = 0;
